@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+   <h:body>
+
+        <h:messages infoStyle="color:green;background:#6495ED;"/>
+        <ui:include src="/menu.xhtml"/>
+        <h:form id="editarUsuario"> 
+        <h:dataTable value="#{sessionScope.usuarioLogado}" var="user" border="3" cellpadding="6">
+
+            <f:facet name="header">
+                Dados do Usuário
+            </f:facet>
+
+            <h:column>
+                <f:facet name="header">ID</f:facet>
+                <h:outputText value="#{user.id}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Nome</f:facet>
+                <h:outputText value="#{user.nome}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Matricula</f:facet>
+                    #{user.matricula}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">CPF</f:facet>
+                <h:outputText value="#{user.cpf}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Endereço</f:facet>
+                <h:outputText value="#{user.endereco}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Telefone</f:facet>
+                <h:outputText value="#{user.tel}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Email</f:facet>
+                <h:outputText value="#{user.email}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Editar</f:facet>
+                <h:commandLink title="Editar" immediate="true">
+                    <h:graphicImage value="/resources/img/editar.png"/>
+                    <f:setPropertyActionListener target="#{usuarioBean.usuario}" value="#{user}" />
+                </h:commandLink>
+            </h:column>
+
+        </h:dataTable>
+        
+       
+        <h:panelGrid columns="2"> 
+            <f:facet name="header">
+                <h:outputText value="Cadastro De usuario"/>
+            </f:facet>
+
+            <h:outputLabel value="Id:"/>
+            <h:inputText value="#{usuarioBean.usuario.id}" readonly="true"/>
+
+            <h:outputLabel value="Nome:"/>
+            <h:inputText value="#{usuarioBean.usuario.nome}"/>
+
+            <h:outputLabel value="CPF:"/>
+            <h:inputText value="#{usuarioBean.usuario.cpf}"/>
+
+            <h:outputLabel value="Telefone:"/>
+            <h:inputText value="#{usuarioBean.usuario.tel}"/>
+
+            <h:outputLabel value="Matricula"/>
+            <h:inputText value="#{usuarioBean.usuario.matricula}"/>
+
+            <h:outputLabel value="Endereco:"/>
+            <h:inputText value="#{usuarioBean.usuario.endereco}" />
+
+            <h:outputLabel value="Email:"/>
+            <h:inputText value="#{usuarioBean.usuario.email}"/>
+
+            <h:outputLabel value="Senha:"/>
+            <h:inputSecret value="#{usuarioBean.usuario.senha}"/>
+
+            <h:outputLabel/>
+            <h:panelGroup>
+                <h:commandButton style="margin-left:1cm;" value="Salvar" action="#{usuarioBean.salvar}" image="/resources/img/salvar.png" title="Salvar" />
+            </h:panelGroup>
+
+        </h:panelGrid>            
+
+        </h:form>
+    </h:body>
+</html>

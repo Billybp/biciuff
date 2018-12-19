@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Cadastro de usuario</title>
+    </h:head>
+
+    <h:body>
+        <ui:include src="/menu.xhtml"/>
+        <h:messages infoStyle="color:green;background:#6495ED;"/>
+        <h:form id="formEstacoes">            
+
+            <h:panelGrid columns="2"> 
+                <f:facet name="header">
+                    <h:outputText value="Cadastro De usuario"/>
+                </f:facet>
+
+                <h:outputLabel value="Id:"/>
+                <h:inputText value="#{estacaoBean.estacao.id}" readonly="true"/>
+
+                <h:outputLabel value="Nome:"/>
+                <h:inputText value="#{estacaoBean.estacao.nome}" 
+                             required="true" requiredMessage="Informe nome do usuario"
+                             validatorMessage="Nome tem que ter no minimo 10 letras">
+                    <f:validateLength minimum="4" maximum="30"/>
+                </h:inputText>
+
+                <h:outputLabel value="Endereço:"/>
+                <h:inputText value="#{estacaoBean.estacao.endereco}"/>
+
+                <h:outputLabel value="Telefone:"/>
+                <h:inputText value="#{estacaoBean.estacao.tel}"/>
+
+                <h:outputLabel/>
+                <h:panelGroup>
+                    <h:commandButton value="Novo" action="#{estacaoBean.novo}" image="/resources/img/new_add_user_16734.png" title="Novo" immediate="true"/>
+                    <h:commandButton style="margin-left:1cm;" value="Salvar" action="#{estacaoBean.salvar}" image="/resources/img/salvar.png" title="Salvar" />
+                    <h:commandButton style="margin-left:1cm;" value="Remove" action="#{estacaoBean.remover}" image="/resources/img/excluir.png" title="Remover"  rendered="#{usuarioBean.permiteAcesso('admin')}" immediate="true"/>
+                    <!--<h:commandButton style="margin-left:1cm;" value="Limpar" type="reset" image="/resources/img/limpar.png" title="Limpar" immediate="true"/> -->
+                </h:panelGroup>
+
+            </h:panelGrid> 
+
+
+            <h:dataTable value="#{estacaoBean.estacoes}" var="est" border="3" cellpadding="6">
+
+                <f:facet name="header">
+                    Lista de Estações
+                </f:facet>
+
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                    <h:outputText value="#{est.id}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Nome</f:facet>
+                    <h:outputText value="#{est.nome}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Endereço</f:facet>
+                        #{est.endereco}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Telefone</f:facet>
+                    <h:outputText value="#{est.tel}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Editar</f:facet>
+                    <h:commandLink title="Editar" immediate="true">
+                        <h:graphicImage value="/resources/img/editar.png"/>
+                        <f:setPropertyActionListener target="#{estacaoBean.estacao}" value="#{est}" />
+                    </h:commandLink>
+                </h:column>
+
+
+                <h:column rendered="#{usuarioBean.permiteAcesso('admin')}">
+                    <f:facet name="header">Excluir</f:facet>
+                    <h:commandLink action="#{estacaoBean.remover}" title="Excluir" immediate="true">
+                        <f:setPropertyActionListener target="#{estacaoBean.estacao}" value="#{est}" />
+                        <h:graphicImage value="/resources/img/excluir.png"/>
+                    </h:commandLink>
+                </h:column>
+
+            </h:dataTable>
+
+        </h:form>
+    </h:body>
+
+</html>
+
